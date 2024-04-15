@@ -14,7 +14,7 @@ Ce projet permet de générer une table de vérité pour une fonction logique do
 
 ## Instructions détaillées
 
-- **Clonage du dépôt** : Assurez-vous d'avoir Git installé sur votre machine et exécutez la commande `git clone git@github.com:nasalotra/Python.git` dans votre terminal ou invite de commande.
+- **Execution** : Exécutez la commande `python ./exo1.py` dans le terminal ou invite de commande.
 
 - **Entrée de la fonction logique** : Lorsque vous êtes invité à entrer la fonction logique, suivez les conventions suivantes :
  - Utilisez `and` pour l'opérateur logique ET.

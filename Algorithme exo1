@@ -1,0 +1,123 @@
+Fonction Xpow(x, y)
+    val = 1
+    Pour i allant de 0 à y-1
+        val = val * x
+    Fin Pour
+    Retourner val
+Fin Fonction
+
+Fonction BaseToDec(base, toHexa, tab)
+    toHexa = convertir toHexa en chaîne
+    length = longueur de toHexa
+    value = 0
+    Pour i allant de 0 à length-1
+        one = Xpow(base, i) * convertir en entier (10 + index de tab dans toHexa[(length - 1) - i]) si toHexa[(length - 1) - i] est dans tab, sinon convertir en entier toHexa[(length - 1) - i]
+        value = value + one
+    Fin Pour
+    Retourner value
+Fin Fonction
+
+Fonction DecToBase(base, toHexa, tab)
+    quotient = toHexa
+    hexa = ""
+    Tant que quotient != 0
+        modulo = quotient % base
+        quotient = quotient / base
+        hexa = convertir en chaîne (tab[modulo % 10] si modulo >= 10, sinon modulo) + hexa
+    Fin Tant que
+    Retourner hexa
+Fin Fonction
+
+Fonction toInto(InputBase, Value, OutputBase)
+    tab = ["A", "B", "C", "D", "E", "F"]
+    Retourner convertir en chaîne DecToBase(OutputBase, BaseToDec(InputBase, Value, tab), tab)
+Fin Fonction
+
+Fonction countVar(toCalc)
+    variables = liste vide
+    toCalc = convertir toCalc en minuscule
+    i = 0
+    Pour chaque x dans toCalc
+        Si x n'est pas un espace
+            Si x est entre 'a' et 'z' et (condition complexe basée sur les positions de x dans toCalc)
+                Si x n'est pas déjà dans variables
+                    Ajouter x à variables
+    Fin Pour
+    Retourner variables
+Fin Fonction
+
+Fonction indexReplace(chaine, index, car)
+    Retourner chaine jusqu'à index + car + chaine après index
+Fin Fonction
+
+Fonction AentreZ(x)
+    Retourner x est entre 'a' et 'z'
+Fin Fonction
+
+Fonction analyse(toCalc, line, variables)
+    toCalc = convertir toCalc en minuscule
+    i = 0
+    Pour chaque x dans toCalc
+        Si x n'est pas un espace
+            Si x est entre 'a' et 'z' et (condition complexe basée sur les positions de x dans toCalc)
+                toCalc = indexReplace(toCalc, i, line[index de variables dans x])
+    Fin Pour
+    Retourner évaluer toCalc comme une expression
+Fin Fonction
+
+Fonction TrulyTable(generator)
+    generator = convertir generator en minuscule
+    table = liste vide
+    max = chaîne vide
+    variables = countVar(generator)
+    Pour chaque x dans variables
+        max = max + "1"
+    Fin Pour
+    max = convertir max en entier
+    max = toInto(2, max, 10)
+    Pour x allant de 0 à max
+        add = liste vide
+        res = toInto(10, x, 2)
+        Pour chaque y dans res
+            Ajouter y converti en entier à add
+        Fin Pour
+        Si longueur de add est inférieure à longueur de variables
+            Pour y allant de 0 à longueur de variables - longueur de add
+                Ajouter 0 au début de add
+        Fin Pour
+        Ajouter add à table
+    Fin Pour
+    funcRes = liste vide
+    lines = chaîne vide
+    Pour chaque k dans variables
+        lines = lines + "| " + k + " "
+    Fin Pour
+    lines = lines + "| f(" + generator + ") |"
+    hr = chaîne vide
+    Pour k allant de 0 à longueur de lines
+        hr = hr + "-"
+    Fin Pour
+    Afficher hr
+    Afficher lines
+    Afficher hr
+    Pour chaque line dans table
+        lines = chaîne vide
+        ok = analyse(generator, line, variables)
+        Pour chaque k dans line
+            lines = lines + "| " + k + " "
+        Fin Pour
+        Afficher lines + "| " + ok + " |"
+        Ajouter ok à funcRes
+    Fin Pour
+    hr = chaîne vide
+    Pour k allant de 0 à longueur de lines
+        hr = hr + "-"
+    Fin Pour
+    Afficher hr + "\n"
+    Retourner [table, funcRes, variables]
+Fin Fonction
+
+Start = lire une chaîne
+All = TrulyTable(Start)
+
+Afficher "Résultats de la table de vérité et des formes canoniques..."

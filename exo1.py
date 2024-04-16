@@ -115,7 +115,7 @@ def TrulyTable(generator):
         coco = ""
         for k in range(leng):
             coco += " "
-        lines += f"|{coco +(" " if len(coco) % 2 != 0 else "") }{ok}{coco}|"
+        lines += f"|{coco}{' ' if len(coco) % 2 != 0 else ''}{ok}{coco}|"
         funcRes.append(ok)
         print(lines)
 
